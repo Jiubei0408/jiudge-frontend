@@ -1,8 +1,18 @@
 import Vue from 'vue'
 import App from './App.vue'
+import '@/plugins/element.js'
+import router from "@/plugins/router";
+import '@/plugins/axios'
+import store from "@/plugins/store"
 
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App),
+    router,
+    store,
+    render: h => h(App),
+    created() {
+        store.commit('savePage', this)
+        this.$store.commit('updateUser')
+    }
 }).$mount('#app')
