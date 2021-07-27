@@ -4,8 +4,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const debug = false
-const localhost = true
-let api = 'http://10.66.47.12:5050/v1'
+const localhost = false
+let api = 'http://jiudge-api.newitd.com:12345/v1'
 
 if (localhost) {
     api = 'http://127.0.0.1:5000/v1'
