@@ -1,8 +1,8 @@
 <template>
   <div id="app" ref="pageBox">
-    <el-scrollbar className="scrollbar">
+    <el-scrollbar class="scrollbar">
+      <page-nav/>
       <div id="appBox">
-        <page-nav/>
         <div class="page-main-box" ref="pageMainBox">
           <router-view/>
         </div>
@@ -14,6 +14,7 @@
 <script>
 
 import PageNav from "@/components/globals/page-nav";
+
 export default {
   name: 'App',
   components: {PageNav},
@@ -55,6 +56,7 @@ export default {
   overflow: hidden;
   width: 100%;
   min-width: 1100px;
+  background-color: #edf0f2;
 }
 
 #appBox {
@@ -74,11 +76,11 @@ export default {
   height: 100%;
 }
 
-.el-scrollbar__wrap {
+#app > .el-scrollbar .el-scrollbar__wrap {
   overflow: auto;
 }
 
-.el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
-  overflow: scroll;
+.el-button.el-button--text {
+  padding: 0;
 }
 </style>

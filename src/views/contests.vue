@@ -1,6 +1,6 @@
 <template>
   <base-box-frame>
-    <p slot="title">Contests</p>
+    <template slot="title">Contests</template>
     <el-table :data="tableData">
       <el-table-column label="比赛名">
         <el-link slot-scope="scope" :underline="false" @click="$router.push(`/contest/${scope.row.id}`)">

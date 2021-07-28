@@ -25,10 +25,15 @@
         <el-button type="primary" @click="submitProblem">Submit</el-button>
       </div>
     </el-dialog>
-    <p slot="title">题目列表</p>
-    <el-table :data="tableData">
+    <template slot="title">题目列表</template>
+    <el-table :data="tableData" v-loading="loading">
       <el-table-column label="题号" prop="problem_id" width="100px"/>
       <el-table-column label="题目名称" prop="problem_name"/>
+      <el-table-column label="限制" width="150px">
+        <template slot-scope="scope">
+          {{ scope.row.time_limit }}s / {{ scope.row.space_limit }}KB
+        </template>
+      </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button v-if="scope.row.has_problem_text_file"
@@ -44,8 +49,9 @@
 
 <script>
 import BaseBoxFrame from "@/components/globals/base-box-frame";
+
 export default {
-  name: "problem_list",
+  name: "problem-list",
   components: {BaseBoxFrame},
   computed: {
     contest_id() {
@@ -60,7 +66,8 @@ export default {
         code: '',
         lang: '',
         allowed_lang: []
-      }
+      },
+      loading: false
     }
   },
   methods: {
@@ -90,6 +97,7 @@ export default {
       }).then(resp => {
         this.$message.success(resp.data.msg)
         this.cancelSubmit()
+        this.$router.push(`/contest/${this.contest_id}/status`)
       }).catch(error => {
         this.$message.error(error.response.data.msg)
         this.cancelSubmit()
@@ -99,10 +107,11 @@ export default {
       this.submitForm.id = -1
     },
     refreshData() {
+      this.loading = true
       this.$http.get(this.$store.state.api + `/contest/${this.contest_id}/problems`)
           .then(resp => {
             this.tableData = resp.data.data
-            this.$forceUpdate()
+            this.loading = false
           })
           .catch(error => {
             this.$message.error(error.response.data.msg)

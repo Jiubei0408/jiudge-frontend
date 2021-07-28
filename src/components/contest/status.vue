@@ -1,12 +1,14 @@
 <template>
   <base-box-frame>
     <view-code-dialog ref="VCDialog"/>
-    <p slot="title">提交列表</p>
-    <el-table :data="tableData">
+    <template slot="title">提交列表</template>
+    <el-table :data="tableData" v-loading="loading">
       <el-table-column label="#" prop="id" width="60px"/>
       <el-table-column label="用户" prop="user.username" width="100px"/>
       <el-table-column label="题目" prop="problem.problem_id" width="60px"/>
-      <el-table-column label="结果" width="100px">
+      <el-table-column label="结果" width="100px"
+                       :filters="resultFilters" :filter-method="resultFilterHandler"
+                       prop="view_result">
         <template slot-scope="scope">
           <p style="font-weight: bold" :style="{'color': getResultColor(scope.row)}">
             {{ scope.row.view_result }}
@@ -41,14 +43,39 @@ export default {
   },
   data() {
     return {
-      tableData: []
+      tableData: [],
+      resultFilters: [{
+        text: 'AC',
+        value: 'AC'
+      }, {
+        text: 'PENDING',
+        value: 'PENDING'
+      }, {
+        text: 'WA',
+        value: 'WA'
+      }, {
+        text: 'TLE',
+        value: 'TLE'
+      }, {
+        text: 'RE',
+        value: 'RE'
+      }, {
+        text: 'CE',
+        value: 'CE'
+      }],
+      loading: false
     }
   },
   methods: {
     refreshData() {
+      this.loading = true
       this.$http.get(this.$store.state.api + `/contest/${this.contest_id}/status`)
           .then(resp => {
             this.tableData = resp.data.submissions
+            this.loading = false
+          })
+          .catch(err => {
+            this.$message.error(err.response.data.msg)
           })
     },
     getResultColor(submission) {
@@ -63,6 +90,10 @@ export default {
     },
     viewCompileInfo(info) {
       this.$refs.VCDialog.view(info, '编译信息：', false)
+    },
+    resultFilterHandler(value, row, column) {
+      const property = column['property'];
+      return row[property] === value;
     }
   },
   created() {

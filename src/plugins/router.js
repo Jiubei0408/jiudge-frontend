@@ -33,15 +33,15 @@ let router = new Router({
                 redirect: 'problems'
             }, {
                 path: 'problems',
-                name: 'contest_problem_list',
-                component: () => import('@/components/contest/problem_list')
+                name: 'problems',
+                component: () => import('@/components/contest/problem-list')
             }, {
                 path: 'scoreboard',
-                name: 'contest_scoreboard',
+                name: 'scoreboard',
                 component: () => import('@/components/contest/scoreboard')
             }, {
                 path: 'status',
-                name: 'contest_status',
+                name: 'status',
                 component: () => import('@/components/contest/status')
             }]
         }, {
