@@ -36,12 +36,8 @@ import ViewCodeDialog from "@/components/globals/view-code-dialog";
 
 export default {
   name: "status",
+  inject: ['contest_id'],
   components: {ViewCodeDialog, BaseBoxFrame},
-  computed: {
-    contest_id() {
-      return this.$route.params.cid
-    }
-  },
   data() {
     return {
       tableData: [],

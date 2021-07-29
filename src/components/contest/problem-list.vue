@@ -52,12 +52,8 @@ import BaseBoxFrame from "@/components/globals/base-box-frame";
 
 export default {
   name: "problem-list",
+  inject: ['contest_id'],
   components: {BaseBoxFrame},
-  computed: {
-    contest_id() {
-      return this.$route.params.cid
-    }
-  },
   data() {
     return {
       tableData: [],

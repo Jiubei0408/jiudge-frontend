@@ -19,12 +19,8 @@ import BaseBoxFrame from "@/components/globals/base-box-frame";
 
 export default {
   name: "contest-right-box",
+  inject: ['contest_id'],
   components: {BaseBoxFrame},
-  computed: {
-    contest_id() {
-      return this.$route.params.cid
-    }
-  },
   methods: {
     refreshButtonActive() {
       for (let button of this.$refs['buttonList'].children) {
@@ -59,10 +55,10 @@ export default {
 }
 
 .button:hover, .button-list:not(:hover) .button.active {
-  background: #409EFF20;
+  background: var(--primary-background);
   cursor: pointer;
-  box-shadow: inset 8px 0 0 0 #409EFF;
-  color: #409EFF;
+  box-shadow: inset 8px 0 0 0 var(--primary);
+  color: var(--primary);
 }
 
 .button > [class^=el-icon-] {

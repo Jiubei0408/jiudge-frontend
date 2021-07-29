@@ -43,6 +43,13 @@ export default {
 }
 </script>
 <style>
+:root {
+  --success: #21BA45;
+  --success-background: #E0FFE4;
+  --primary: #409EFF;
+  --primary-background: #E7F3FF;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -82,6 +89,12 @@ export default {
 
 .el-button.el-button--text {
   padding: 0;
+}
+
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 ::-webkit-scrollbar {

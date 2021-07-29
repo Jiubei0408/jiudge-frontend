@@ -1,6 +1,15 @@
 <template>
   <base-box-frame>
-    <template slot="title">比赛榜单</template>
+    <template slot="title">
+      <div class="clearfix">
+        <span style="float: left">比赛榜单</span>
+        <el-popconfirm title="确认删除榜单缓存？" @confirm="deleteCache">
+          <el-button slot="reference" size="medium" type="danger" style="float: right" icon="el-icon-delete">
+            删除缓存
+          </el-button>
+        </el-popconfirm>
+      </div>
+    </template>
     <el-table v-loading="loading" :data="tableData" border
               max-height="600px"
               cell-class-name="scoreboard-cell" header-cell-class-name="scoreboard-header-cell">
@@ -17,14 +26,16 @@
                        v-for="problem in problems"
                        :key="problem.problem_id"
                        width="60px">
-        <template slot-scope="scope" v-if="isSubmitted(scope)">
+        <div :class="getCellClass(scope)" slot-scope="scope" v-if="isSubmitted(scope)">
           <span class="tried-cnt" :class="getTriedCntClass(scope)">{{ getTriedCntStr(scope) }}</span>
           <span class="solve-time" v-if="isSolved(scope)">{{ getSolveTimeStr(scope) }}</span>
-        </template>
+        </div>
       </el-table-column>
       <el-table-column/>
     </el-table>
     <template slot="notes">
+      <i v-if="update_time !== ''">上次更新时间: {{ update_time }}</i>
+      <br/><br/>
       jiubei太菜了没写爬榜单
       <br/>
       如果你想看到除了实验室人员之外的榜单，请
@@ -41,20 +52,20 @@ import BaseBoxFrame from "@/components/globals/base-box-frame";
 
 export default {
   name: "scoreboard",
+  inject: ['contest_id'],
   components: {BaseBoxFrame},
-  computed: {
-    contest_id() {
-      return this.$route.params.cid
-    }
-  },
   data() {
     return {
       tableData: [],
       problems: [],
+      update_time: '',
       loading: false
     }
   },
   methods: {
+    deleteCache() {
+      this.$http.delete(this.$store.state.api + `/contest/${this.contest_id}/scoreboard`)
+    },
     getCellData(scope) {
       return scope.row[scope.column.property]
     },
@@ -62,6 +73,12 @@ export default {
       let cell = this.getCellData(scope)
       if (cell.solved) return 'accepted'
       if (cell.tried) return 'failed'
+    },
+    getCellClass(scope) {
+      let cell = this.getCellData(scope)
+      let cls = ['problem-cell']
+      if (cell.first_blood) cls.push('first-blood')
+      return cls
     },
     getTriedCntStr(scope) {
       let cell = this.getCellData(scope)
@@ -91,6 +108,7 @@ export default {
           .then(resp => {
             this.problems = resp.data.problems
             this.tableData = resp.data.scoreboard
+            this.update_time = resp.data.update_time
             this.loading = false
           })
           .catch(err => {
@@ -111,10 +129,31 @@ export default {
 /deep/ .scoreboard-header-cell {
   font-weight: normal;
   color: black;
+  text-align: center;
 }
 
-/deep/ .scoreboard-header-cell, /deep/ .scoreboard-cell {
+/deep/ .scoreboard-cell {
+  padding: 0;
   text-align: center;
+}
+
+/deep/ td.scoreboard-cell .cell{
+  padding: 0;
+  height: 60px;
+  line-height: 60px;
+}
+
+
+/deep/ .scoreboard-cell .cell *{
+  line-height: 1;
+}
+
+/deep/ .problem-cell{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .tried-cnt {
@@ -127,10 +166,15 @@ export default {
   display: block;
   font-size: 12px;
   color: grey;
+  margin-top: 5px;
+}
+
+.first-blood {
+  background-color: var(--success-background);
 }
 
 .accepted {
-  color: #21ba45
+  color: var(--success)
 }
 
 .failed {

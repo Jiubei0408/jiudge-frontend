@@ -22,7 +22,11 @@ export default {
       return this.$route.params.cid
     }
   },
-
+  provide(){
+    return {
+      contest_id: this.contest_id
+    }
+  }
 }
 </script>
 
