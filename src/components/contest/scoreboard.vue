@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     deleteCache() {
-      this.$http.delete(this.$store.state.api + `/contest/${this.contest_id}/scoreboard`)
+      this.$http.delete(this.api + `/contest/${this.contest_id}/scoreboard`)
     },
     getCellData(scope) {
       return scope.row[scope.column.property]
@@ -104,7 +104,7 @@ export default {
     },
     refreshData() {
       this.loading = true
-      this.$http.get(this.$store.state.api + `/contest/${this.contest_id}/scoreboard`)
+      this.$http.get(this.api + `/contest/${this.contest_id}/scoreboard`)
           .then(resp => {
             this.problems = resp.data.problems
             this.tableData = resp.data.scoreboard

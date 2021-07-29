@@ -17,15 +17,35 @@ import ContestRightBox from "@/components/contest/contest-right-box";
 export default {
   name: "contest",
   components: {ContestRightBox},
+  provide() {
+    return {
+      contest_id: this.contest_id,
+      getContest: () => this.contest
+    }
+  },
   computed: {
     contest_id() {
       return this.$route.params.cid
+    },
+  },
+  data() {
+    return {
+      contest: {}
     }
   },
-  provide(){
-    return {
-      contest_id: this.contest_id
+  methods: {
+    refereshData() {
+      this.$http.get(this.api + `/contest/${this.contest_id}`)
+          .then(resp => {
+            this.contest = resp.data.data
+          })
+          .catch(err => {
+            this.$message.error(err.response.data.msg)
+          })
     }
+  },
+  created() {
+    this.refereshData()
   }
 }
 </script>

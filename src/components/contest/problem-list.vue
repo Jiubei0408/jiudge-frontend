@@ -40,7 +40,9 @@
                      size="mini" type="primary" @click="openPdf(scope.row.problem_id)">
             查看题面
           </el-button>
-          <el-button size="mini" type="primary" @click="openSubmit(scope.row)">提交</el-button>
+          <el-button v-if="user.permission === UserPermission.ADMIN || contest.state !== ContestState.ENDED"
+                     size="mini" type="primary" @click="openSubmit(scope.row)">提交
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -52,8 +54,13 @@ import BaseBoxFrame from "@/components/globals/base-box-frame";
 
 export default {
   name: "problem-list",
-  inject: ['contest_id'],
+  inject: ['getContest', 'contest_id'],
   components: {BaseBoxFrame},
+  computed: {
+    contest() {
+      return this.getContest()
+    }
+  },
   data() {
     return {
       tableData: [],
@@ -68,7 +75,7 @@ export default {
   },
   methods: {
     openPdf(pid) {
-      window.open(this.$store.state.api + `/contest/${this.contest_id}/problem_text_file/${pid}`)
+      window.open(this.api + `/contest/${this.contest_id}/problem_text_file/${pid}`)
     },
     openSubmit(problem) {
       this.submitForm = {
@@ -87,7 +94,7 @@ export default {
         this.$message.error('请选择语言')
         return
       }
-      this.$http.post(this.$store.state.api + `/contest/${this.contest_id}/submit/${this.submitForm.id}`, {
+      this.$http.post(this.api + `/contest/${this.contest_id}/submit/${this.submitForm.id}`, {
         code: this.submitForm.code,
         lang: this.submitForm.lang
       }).then(resp => {
@@ -104,7 +111,7 @@ export default {
     },
     refreshData() {
       this.loading = true
-      this.$http.get(this.$store.state.api + `/contest/${this.contest_id}/problems`)
+      this.$http.get(this.api + `/contest/${this.contest_id}/problems`)
           .then(resp => {
             this.tableData = resp.data.data
             this.loading = false

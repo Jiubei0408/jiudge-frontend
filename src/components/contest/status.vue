@@ -89,7 +89,7 @@ export default {
   methods: {
     refreshData() {
       this.loading = true
-      this.$http.get(this.$store.state.api + `/contest/${this.contest_id}/status`, {
+      this.$http.get(this.api + `/contest/${this.contest_id}/status`, {
         params: this.filterForm
       }).then(resp => {
         this.tableData = resp.data.data.data

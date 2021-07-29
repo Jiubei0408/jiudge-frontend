@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex, {mapState} from 'vuex'
 
 Vue.use(Vuex)
 
@@ -22,6 +22,12 @@ let state = {
     },
     message_count: 0
 }
+
+Vue.mixin({
+    computed:{
+        ...mapState(['user', 'api'])
+    }
+})
 
 let mutations = {
     savePage(state, page) {

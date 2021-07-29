@@ -5,8 +5,8 @@
              mode="horizontal" router>
       <el-menu-item index="/">Contests</el-menu-item>
       <div class="userBox">
-        <template v-if="this.$store.state.user.username !== ''">
-          <span style="margin-right: 15px">Welcome, {{ $store.state.user.nickname }}</span>
+        <template v-if="this.user.username !== ''">
+          <span style="margin-right: 15px">Welcome, {{ user.nickname }}</span>
           <el-button icon="el-icon-user" @click="logout">Logout</el-button>
         </template>
         <template v-else>

@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button v-show="$store.state.user.username !== '' && !scope.row.registered"
+          <el-button v-show="user.username !== '' && !scope.row.registered && scope.row.state !== ContestState.ENDED"
                      size="mini" type="primary" @click="register(scope.row.id)">注册
           </el-button>
         </template>
@@ -37,14 +37,14 @@ export default {
   },
   methods: {
     refreshData() {
-      this.$http.get(this.$store.state.api + '/contests')
+      this.$http.get(this.api + '/contests')
           .then(resp => {
             this.tableData = resp.data.contests
             this.$forceUpdate()
           })
     },
     register(cid) {
-      this.$http.post(this.$store.state.api + `/contest/${cid}/register`)
+      this.$http.post(this.api + `/contest/${cid}/register`)
           .then(resp => {
             if (resp.status === 200) this.$message.success(resp.data.msg)
             else this.$message.error(resp.data.msg)
