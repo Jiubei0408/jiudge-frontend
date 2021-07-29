@@ -118,7 +118,6 @@ export default {
           })
           .catch(error => {
             this.$message.error(error.response.data.msg)
-            this.$router.go(-1)
           })
     }
   },
