@@ -3,8 +3,9 @@
     <template slot="title">
       <div class="clearfix">
         <span style="float: left">比赛榜单</span>
-        <el-popconfirm title="确认删除榜单缓存？" @confirm="deleteCache">
-          <el-button slot="reference" size="medium" type="danger" style="float: right" icon="el-icon-delete">
+        <el-popconfirm style="float: right" v-if="user.permission === UserPermission.ADMIN" title="确认删除榜单缓存？"
+                       @confirm="deleteCache">
+          <el-button slot="reference" size="medium" type="danger" icon="el-icon-delete">
             删除缓存
           </el-button>
         </el-popconfirm>
@@ -137,18 +138,18 @@ export default {
   text-align: center;
 }
 
-/deep/ td.scoreboard-cell .cell{
+/deep/ td.scoreboard-cell .cell {
   padding: 0;
   height: 60px;
   line-height: 60px;
 }
 
 
-/deep/ .scoreboard-cell .cell *{
+/deep/ .scoreboard-cell .cell * {
   line-height: 1;
 }
 
-/deep/ .problem-cell{
+/deep/ .problem-cell {
   height: 100%;
   display: flex;
   flex-direction: column;
