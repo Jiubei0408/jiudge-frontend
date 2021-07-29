@@ -4,7 +4,8 @@
     <template slot="title">提交列表</template>
     <el-table :data="tableData" v-loading="loading">
       <el-table-column label="#" prop="id" width="60px"/>
-      <el-table-column label="用户" prop="user.username" width="100px"/>
+      <el-table-column label="学号" prop="user.username" width="100px"/>
+      <el-table-column label="姓名" prop="user.nickname" width="80px"/>
       <el-table-column label="题目" prop="problem.problem_id" width="60px"/>
       <el-table-column label="结果" width="100px"
                        :filters="resultFilters" :filter-method="resultFilterHandler"

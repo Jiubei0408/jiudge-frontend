@@ -2,12 +2,14 @@
   <base-box-frame>
     <template slot="title">比赛榜单</template>
     <el-table v-loading="loading" :data="tableData" border
+              max-height="600px"
               cell-class-name="scoreboard-cell" header-cell-class-name="scoreboard-header-cell">
       <el-table-column label="#" width="60px" fixed>
         <template slot-scope="scope">
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
+      <el-table-column label="学号" prop="user.username" width="100px" fixed/>
       <el-table-column label="姓名" prop="user.nickname" width="80px" fixed/>
       <el-table-column label="通过" prop="solved" width="60px" fixed/>
       <el-table-column label="罚时" prop="penalty" width="70px" fixed/>

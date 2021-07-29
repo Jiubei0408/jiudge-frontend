@@ -83,4 +83,24 @@ export default {
 .el-button.el-button--text {
   padding: 0;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  border-radius: 6px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: transparent;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background-color: #9093994d;
+}
+
+:hover::-webkit-scrollbar-thumb:hover {
+  background-color: #90939980;
+}
 </style>
