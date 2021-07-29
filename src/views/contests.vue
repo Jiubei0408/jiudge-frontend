@@ -16,7 +16,8 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button v-show="$store.state.user.username !== '' && !scope.row.registered"
-                     size="mini" type="primary" @click="register(scope.row.id)">注册</el-button>
+                     size="mini" type="primary" @click="register(scope.row.id)">注册
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -25,6 +26,7 @@
 
 <script>
 import BaseBoxFrame from "@/components/globals/base-box-frame";
+
 export default {
   name: "contests",
   components: {BaseBoxFrame},
@@ -47,6 +49,9 @@ export default {
             if (resp.status === 200) this.$message.success(resp.data.msg)
             else this.$message.error(resp.data.msg)
             this.refreshData()
+          })
+          .catch(err => {
+            this.$message.error(err.response.data.msg)
           })
     }
   },
