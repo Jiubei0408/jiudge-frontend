@@ -3,7 +3,7 @@
     <view-code-dialog ref="VCDialog"/>
     <template slot="title">提交列表</template>
     <el-form align="center" inline>
-      <el-form-item label="学号">
+      <el-form-item label="账号">
         <el-input @keypress.native.enter="refreshData" style="width: 150px" v-model="filterForm.username"/>
       </el-form-item>
       <el-form-item label="题目">
@@ -21,7 +21,7 @@
     </el-form>
     <el-table :data="tableData" v-loading="loading">
       <el-table-column label="#" prop="id" width="60px"/>
-      <el-table-column label="学号" prop="user.username" width="100px"/>
+      <el-table-column label="账号" prop="user.username" width="100px"/>
       <el-table-column label="姓名" prop="user.nickname" width="80px"/>
       <el-table-column label="题目" prop="problem.problem_id" width="60px"/>
       <el-table-column label="结果" width="100px" prop="view_result">
