@@ -43,6 +43,10 @@ let router = new Router({
                 path: 'status',
                 name: 'status',
                 component: () => import('@/components/contest/status')
+            }, {
+                path: 'clarification',
+                name: 'clarification',
+                component: () => import('@/components/contest/clarification')
             }]
         }, {
             path: '*',

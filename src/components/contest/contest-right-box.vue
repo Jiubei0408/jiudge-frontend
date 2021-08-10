@@ -10,6 +10,9 @@
       <div data-route="scoreboard" class="button" @click="$router.push(`/contest/${contest_id}/scoreboard`)">
         <i class="el-icon-s-order"/> 比赛榜单
       </div>
+      <div data-route="clarification" class="button" @click="$router.push(`/contest/${contest_id}/clarification`)">
+        <i class="el-icon-warning"/> 赛中问答
+      </div>
     </div>
   </base-box-frame>
 </template>
