@@ -1,7 +1,7 @@
 <template>
   <div class="page-nav">
     <el-menu :default-active="this.$route.path" class="middle-box"
-             style="height:60px;width:1100px;z-index:1000"
+             style="height:60px;width:var(--middle-box-width);z-index:1000"
              mode="horizontal" router>
       <el-menu-item index="/">Contests</el-menu-item>
       <div class="userBox">

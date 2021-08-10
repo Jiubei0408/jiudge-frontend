@@ -15,8 +15,8 @@
               max-height="600px"
               cell-class-name="scoreboard-cell" header-cell-class-name="scoreboard-header-cell">
       <el-table-column label="#" prop="rank" width="60px" fixed/>
-      <el-table-column label="学号" prop="user.username" width="100px" fixed/>
-      <el-table-column label="姓名" prop="user.nickname" width="80px" fixed/>
+      <el-table-column label="账号" prop="user.username" width="100px" fixed/>
+      <el-table-column label="姓名" prop="user.nickname" width="150px" fixed/>
       <el-table-column label="通过" prop="solved" width="60px" fixed/>
       <el-table-column label="罚时" prop="penalty" width="70px" fixed/>
       <el-table-column :label="problem.problem_id" :prop="problem.problem_id"
@@ -28,7 +28,6 @@
           <span class="solve-time" v-if="isSolved(scope)">{{ getSolveTimeStr(scope) }}</span>
         </div>
       </el-table-column>
-      <el-table-column/>
     </el-table>
     <template slot="notes">
       <i v-if="update_time !== ''">上次更新时间: {{ update_time }}</i>

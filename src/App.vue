@@ -48,6 +48,7 @@ export default {
   --success-background: #E0FFE4;
   --primary: #409EFF;
   --primary-background: #E7F3FF;
+  --middle-box-width: 1200px;
 }
 
 * {
@@ -62,12 +63,12 @@ export default {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   overflow: hidden;
   width: 100%;
-  min-width: 1100px;
+  min-width: var(--middle-box-width);
   background-color: #edf0f2;
 }
 
 #appBox {
-  width: 1100px;
+  width: var(--middle-box-width);
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);

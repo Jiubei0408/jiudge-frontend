@@ -16,7 +16,7 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button v-show="user.username !== '' && !scope.row.registered && scope.row.state !== ContestState.ENDED"
-                     size="mini" type="primary" @click="register(scope.row.id)">注册
+                     size="mini" type="primary" @click="register(scope.row)">注册
           </el-button>
         </template>
       </el-table-column>
@@ -43,16 +43,34 @@ export default {
             this.$forceUpdate()
           })
     },
-    register(cid) {
-      this.$http.post(this.api + `/contest/${cid}/register`)
-          .then(resp => {
+    register(row) {
+      if (row.require_password) {
+        this.$prompt('', '请输入密码', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
+        }).then(({value}) => {
+          this.$http.post(this.api + `/contest/${row.id}/register`, {
+            password: value
+          }).then(resp => {
             if (resp.status === 200) this.$message.success(resp.data.msg)
             else this.$message.error(resp.data.msg)
             this.refreshData()
-          })
-          .catch(err => {
+          }).catch(err => {
             this.$message.error(err.response.data.msg)
           })
+        }).catch(() => {
+        })
+      } else {
+        this.$http.post(this.api + `/contest/${row.id}/register`)
+            .then(resp => {
+              if (resp.status === 200) this.$message.success(resp.data.msg)
+              else this.$message.error(resp.data.msg)
+              this.refreshData()
+            })
+            .catch(err => {
+              this.$message.error(err.response.data.msg)
+            })
+      }
     }
   },
   created() {

@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-row :gutter="16">
-      <el-col :span="18">
+      <el-col :span="19">
         <router-view/>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="5">
         <contest-right-box/>
       </el-col>
     </el-row>
