@@ -21,6 +21,11 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination align="center" layout="prev, pager, next, jumper, slot, total"
+                   style="margin-top: 20px" :page-size="page_size"
+                   :current-page.sync="page" :total="total" @current-change="refreshData">
+      <div style="display: inline-block; width: 50px"/>
+    </el-pagination>
   </base-box-frame>
 </template>
 
@@ -32,16 +37,28 @@ export default {
   components: {BaseBoxFrame},
   data() {
     return {
-      tableData: []
+      tableData: [],
+      page: 1,
+      page_size: 10,
+      total: 0
     }
   },
   methods: {
     refreshData() {
-      this.$http.get(this.api + '/contests')
-          .then(resp => {
-            this.tableData = resp.data.contests
-            this.$forceUpdate()
-          })
+      this.$http.get(this.api + '/contests', {
+        params: {
+          page: this.page,
+          page_size: this.page_size,
+          order: {
+            id: 'desc'
+          }
+        }
+      }).then(resp => {
+        this.tableData = resp.data.data
+        this.page = resp.data.meta.page
+        this.total = resp.data.meta.count
+        this.$forceUpdate()
+      })
     },
     register(row) {
       if (row.require_password) {
