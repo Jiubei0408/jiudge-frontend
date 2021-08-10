@@ -56,6 +56,8 @@ export default {
 .code {
   padding: 20px;
   border: 1px solid black;
-  background-color: #FAFAFA
+  background-color: #FAFAFA;
+  word-break: break-all;
+  white-space: pre-wrap;
 }
 </style>
