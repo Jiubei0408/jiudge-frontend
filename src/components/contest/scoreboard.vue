@@ -31,14 +31,6 @@
     </el-table>
     <template slot="notes">
       <i v-if="update_time !== ''">上次更新时间: {{ update_time }}</i>
-      <br/><br/>
-      jiubei太菜了没写爬榜单
-      <br/>
-      如果你想看到除了实验室人员之外的榜单，请
-      <el-button
-          style="font-size: 16px" type="text" @click="openRemoteScoreboard">
-        查看原榜单
-      </el-button>
     </template>
   </base-box-frame>
 </template>

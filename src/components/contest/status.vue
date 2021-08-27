@@ -20,11 +20,17 @@
       </el-form-item>
     </el-form>
     <el-table :data="tableData" v-loading="loading">
-      <el-table-column label="#" prop="id" width="60px"/>
+      <el-table-column label="#" width="80px">
+        <template slot-scope="scope">
+          <el-link style="margin-right: 20px" @click="viewcode(scope.row.code)" :underline="false">
+            {{ scope.row.id }}
+          </el-link>
+        </template>
+      </el-table-column>
       <el-table-column label="账号" prop="user.username" width="100px"/>
       <el-table-column label="姓名" prop="user.nickname" width="80px"/>
       <el-table-column label="题目" prop="problem.problem_id" width="60px"/>
-      <el-table-column label="结果" width="100px" prop="view_result">
+      <el-table-column label="结果" prop="view_result">
         <template slot-scope="scope">
           <p style="font-weight: bold" :style="{'color': getResultColor(scope.row)}">
             {{ scope.row.view_result }}
@@ -35,9 +41,6 @@
       <el-table-column label="提交时间" prop="submit_time"/>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-link style="margin-right: 20px" @click="viewcode(scope.row.code)" :underline="false">
-            查看代码
-          </el-link>
           <el-link @click="viewCompileInfo(scope.row.compile_info)" :underline="false">查看编译信息</el-link>
         </template>
       </el-table-column>
