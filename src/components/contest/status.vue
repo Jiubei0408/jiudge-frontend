@@ -30,11 +30,13 @@
       <el-table-column label="账号" prop="user.username" width="100px"/>
       <el-table-column label="姓名" prop="user.nickname" width="80px"/>
       <el-table-column label="题目" prop="problem.problem_id" width="60px"/>
-      <el-table-column label="结果" prop="view_result">
+      <el-table-column label="结果" prop="view_result" width="100px">
         <template slot-scope="scope">
-          <p style="font-weight: bold" :style="{'color': getResultColor(scope.row)}">
-            {{ scope.row.view_result }}
-          </p>
+          <el-tooltip style="width: fit-content" :content="scope.row.remote_result" placement="top">
+            <p style="font-weight: bold" :style="{'color': getResultColor(scope.row)}">
+              {{ scope.row.view_result }}
+            </p>
+          </el-tooltip>
         </template>
       </el-table-column>
       <el-table-column label="语言" prop="lang" width="80px"/>
