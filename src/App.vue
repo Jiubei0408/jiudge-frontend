@@ -48,6 +48,10 @@ export default {
   --success-background: #E0FFE4;
   --primary: #409EFF;
   --primary-background: #E7F3FF;
+  --dangerous: #F56C6C;
+  --dangerous-background: #fdd5d5;
+  --info: #909399;
+  --info-background: #f5f5f5;
   --middle-box-width: 1200px;
 }
 

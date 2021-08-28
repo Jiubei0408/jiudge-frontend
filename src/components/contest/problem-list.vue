@@ -26,12 +26,21 @@
       </div>
     </el-dialog>
     <template slot="title">题目列表</template>
-    <el-table :data="tableData" v-loading="loading">
-      <el-table-column label="题号" prop="problem_id" width="100px"/>
-      <el-table-column label="题目名称" prop="problem_name"/>
-      <el-table-column label="限制" width="150px">
+    <el-table :data="tableData" v-loading="loading" :row-class-name="getRowClass">
+      <el-table-column label="=" width="40px">
         <template slot-scope="scope">
-          {{ scope.row.time_limit }}s / {{ scope.row.space_limit }}KB
+          <div class="problem-status">
+            <i style="color: var(--success)" class="el-icon-check" v-if="scope.row.solved"/>
+            <i style="color: var(--dangerous)" class="el-icon-close" v-else-if="scope.row.tried"/>
+            <i style="color: var(--info)" class="el-icon-minus" v-else/>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="题号" prop="problem_id" width="80px"/>
+      <el-table-column label="题目名称" prop="problem_name"/>
+      <el-table-column label="限制" width="120px">
+        <template slot-scope="scope">
+          {{ scope.row.time_limit }}s, {{ Math.floor(scope.row.space_limit / 1024) }}MB
         </template>
       </el-table-column>
       <el-table-column label="操作">
@@ -43,6 +52,12 @@
           <el-button v-if="user.permission === UserPermission.ADMIN || contest.state !== ContestState.ENDED"
                      size="mini" type="primary" @click="openSubmit(scope.row)">提交
           </el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="通过率">
+        <template slot-scope="scope">
+          {{ (scope.row.tried_cnt === 0 ? 0 : scope.row.solve_cnt / scope.row.tried_cnt * 100).toFixed(2) }}%
+          ({{ scope.row.solve_cnt }}/{{ scope.row.tried_cnt }})
         </template>
       </el-table-column>
     </el-table>
@@ -74,6 +89,11 @@ export default {
     }
   },
   methods: {
+    getRowClass({row}) {
+      if (row.solved) return 'solved'
+      else if (row.tried) return 'tried'
+      else return ''
+    },
     openPdf(pid) {
       window.open(this.api + `/contest/${this.contest_id}/problem_text_file/${pid}`)
     },
@@ -128,5 +148,16 @@ export default {
 </script>
 
 <style scoped>
+.problem-status {
+  font-weight: bolder;
+  font-size: 16px;
+}
 
+/deep/ .solved {
+  background: linear-gradient(to right, var(--success-background) 5%, transparent 15%);
+}
+
+/deep/ .tried {
+  background: linear-gradient(to right, var(--dangerous-background) 5%, transparent 15%);
+}
 </style>
