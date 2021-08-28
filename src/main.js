@@ -5,6 +5,7 @@ import router from "@/plugins/router";
 import '@/plugins/axios'
 import store from "@/plugins/store"
 import '@/plugins/enum'
+import '@/plugins/moment'
 
 Vue.config.productionTip = false
 
