@@ -11,7 +11,13 @@ const UserPermission = {
     ADMIN: 1
 }
 
-let enums = {ContestState, UserPermission}
+const ContestRegisterType = {
+    Participant: 0,
+    Observer: 1,
+    Starred: 2
+}
+
+let enums = {ContestState, UserPermission, ContestRegisterType}
 
 Vue.mixin({
     data() {

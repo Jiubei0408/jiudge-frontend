@@ -15,8 +15,11 @@
               max-height="600px"
               cell-class-name="scoreboard-cell" header-cell-class-name="scoreboard-header-cell">
       <el-table-column label="#" prop="rank" width="60px" fixed/>
-      <el-table-column label="账号" prop="user.username" width="100px" fixed/>
-      <el-table-column label="姓名" prop="user.nickname" width="150px" fixed/>
+      <el-table-column label="姓名" width="150px" fixed>
+        <template slot-scope="scope">
+          {{ (scope.row.register_type === ContestRegisterType.Starred ? '*' : '') + scope.row.user.nickname }}
+        </template>
+      </el-table-column>
       <el-table-column label="通过" prop="solved" width="60px" fixed/>
       <el-table-column label="罚时" prop="penalty" width="70px" fixed/>
       <el-table-column :label="problem.problem_id" :prop="problem.problem_id"
