@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 const debug = false
 const localhost = false
-let api = 'http://jiudge-api.zuccacm.top/v1'
+let api = 'https://jiudge-api.zuccacm.top/v1'
 
 if (localhost) {
     api = 'http://127.0.0.1:5000/v1'
