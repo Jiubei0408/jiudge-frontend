@@ -14,12 +14,12 @@
     <el-table v-loading="loading" :data="tableData" border
               max-height="600px"
               cell-class-name="scoreboard-cell" header-cell-class-name="scoreboard-header-cell">
-      <el-table-column label="#" prop="rank" width="60px" fixed/>
-      <el-table-column label="姓名" width="150px" fixed>
-        <template slot-scope="scope">
-          {{ (scope.row.register_type === ContestRegisterType.Starred ? '*' : '') + scope.row.user.nickname }}
+      <el-table-column label="#" prop="rank" width="60px" fixed>
+        <template v-slot="scope" >
+        {{ scope.row.register_type === ContestRegisterType.Starred ? '*' : scope.row.rank }}
         </template>
       </el-table-column>
+      <el-table-column label="姓名" prop="user.nickname" width="150px" fixed/>
       <el-table-column label="通过" prop="solved" width="60px" fixed/>
       <el-table-column label="罚时" prop="penalty" width="70px" fixed/>
       <el-table-column :label="problem.problem_id" :prop="problem.problem_id"

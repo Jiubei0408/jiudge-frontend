@@ -27,7 +27,6 @@
                    :current-page.sync="page" :total="total" @current-change="refreshData">
       <div style="display: inline-block; width: 50px"/>
     </el-pagination>
-    <p slot="notes">由于jiubei太菜了所以Clarifications现在是手动添加的，若有需要，可以来找jiubei提交</p>
   </base-box-frame>
 </template>
 
