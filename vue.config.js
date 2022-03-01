@@ -1,6 +1,6 @@
 let buildTime = new Date()
 module.exports = {
-    publicPath: './',
+    publicPath: '/',
     productionSourceMap: false,
     chainWebpack: config => {
         config

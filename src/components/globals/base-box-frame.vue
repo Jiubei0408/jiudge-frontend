@@ -24,7 +24,6 @@ export default {
 <style scoped>
 .base-box-frame {
   width: 100%;
-  cursor: default;
 }
 
 /deep/ .box-title{
