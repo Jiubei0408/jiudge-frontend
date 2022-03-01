@@ -22,7 +22,7 @@
       </el-form>
       <div slot="footer">
         <el-button @click="cancelSubmit">Cancel</el-button>
-        <el-button type="primary" @click="submitProblem">Submit</el-button>
+        <el-button type="primary" @click="submitProblem" :disabled="submittingProblem">Submit</el-button>
       </div>
     </el-dialog>
     <template slot="title">题目列表</template>
@@ -85,7 +85,8 @@ export default {
         lang: '',
         allowed_lang: []
       },
-      loading: false
+      loading: false,
+      submittingProblem: false
     }
   },
   methods: {
@@ -106,12 +107,16 @@ export default {
       this.submitForm.allowed_lang = problem.allowed_lang
     },
     submitProblem() {
+      if (this.submittingProblem) return;
+      this.submittingProblem = true
       if (this.submitForm.code === '') {
         this.$message.error('代码不能为空')
+        this.submittingProblem = false
         return
       }
       if (this.submitForm.lang === '') {
         this.$message.error('请选择语言')
+        this.submittingProblem = false
         return
       }
       this.$http.post(this.api + `/contest/${this.contest_id}/submit/${this.submitForm.id}`, {
@@ -128,6 +133,7 @@ export default {
     },
     cancelSubmit() {
       this.submitForm.id = -1
+      this.submittingProblem = false
     },
     refreshData() {
       this.loading = true
