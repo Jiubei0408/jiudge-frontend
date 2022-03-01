@@ -108,7 +108,7 @@ export default {
     getResultColor(submission) {
       let result = submission.view_result
       if (result === 'AC') return '#21ba45'
-      if (result === 'PENDING') return '#c7c7c7'
+      if (result === 'PENDING' || result === 'RUNNING') return '#c7c7c7'
       if (result === 'UNKNOWN' || result === 'SpiderError') return 'black'
       return 'red'
     },
