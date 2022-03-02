@@ -9,5 +9,17 @@ module.exports = {
                 args[0].buildTime = buildTime
                 return args
             })
+    },
+    devServer: {
+        proxy: {
+            '/api': {
+                target: 'http://localhost:5000',
+                changeOrigin: true,
+                // secure: false,
+                pathRewrite: {
+                    '^/api': ''
+                }
+            }
+        }
     }
 }

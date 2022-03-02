@@ -1,13 +1,15 @@
 <template>
   <base-box-frame>
-    <template slot="title">
+    <template v-slot:title>
       <div class="clearfix">
         <span style="float: left">比赛榜单</span>
         <el-popconfirm style="float: right" v-if="user.permission === UserPermission.ADMIN" title="确认删除榜单缓存？"
                        @confirm="deleteCache">
-          <el-button slot="reference" size="medium" type="danger" icon="el-icon-delete">
-            删除缓存
-          </el-button>
+          <template v-slot:reference>
+            <el-button size="medium" type="danger" icon="el-icon-delete">
+              删除缓存
+            </el-button>
+          </template>
         </el-popconfirm>
       </div>
     </template>
@@ -15,8 +17,8 @@
               max-height="600px"
               cell-class-name="scoreboard-cell" header-cell-class-name="scoreboard-header-cell">
       <el-table-column label="#" prop="rank" width="60px" fixed>
-        <template v-slot="scope" >
-        {{ scope.row.register_type === ContestRegisterType.Starred ? '*' : scope.row.rank }}
+        <template v-slot="scope">
+          {{ scope.row.register_type === ContestRegisterType.Starred ? '*' : scope.row.rank }}
         </template>
       </el-table-column>
       <el-table-column label="姓名" prop="user.nickname" width="150px" fixed/>
@@ -32,7 +34,7 @@
         </div>
       </el-table-column>
     </el-table>
-    <template slot="notes">
+    <template v-slot:notes>
       <i v-if="update_time !== ''">上次更新时间: {{ update_time }}</i>
     </template>
   </base-box-frame>

@@ -4,11 +4,11 @@ import Vuex, {mapState} from 'vuex'
 Vue.use(Vuex)
 
 const debug = false
-const localhost = false
+const localhost = true
 let api = 'https://jiudge-api.zuccacm.top/v1'
 
 if (localhost) {
-    api = 'http://127.0.0.1:5000/v1'
+    api = '/api/v1'
 }
 
 let state = {

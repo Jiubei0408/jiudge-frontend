@@ -1,7 +1,7 @@
 <template>
   <base-box-frame>
     <view-code-dialog ref="VCDialog"/>
-    <p slot="title">赛中问答</p>
+    <template v-slot:title>赛中问答</template>
     <el-table :data="tableData" v-loading="loading">
       <el-table-column label="题目" width="100px">
         <template slot-scope="scope">

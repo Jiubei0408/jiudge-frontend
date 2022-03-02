@@ -48,6 +48,8 @@ export default {
   --success-background: #E0FFE4;
   --primary: #409EFF;
   --primary-background: #E7F3FF;
+  --warning: #E6A23C;
+  --warning-background: #faecd8;
   --dangerous: #F56C6C;
   --dangerous-background: #fdd5d5;
   --info: #909399;
@@ -55,12 +57,10 @@ export default {
   --middle-box-width: 1200px;
 }
 
-* {
+body {
   padding: 0;
   margin: 0;
   border: 0;
-  text-decoration: none;
-  list-style-type: none;
 }
 
 #app {

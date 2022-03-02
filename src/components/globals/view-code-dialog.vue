@@ -1,11 +1,13 @@
 <template>
   <el-dialog :visible.sync="visible" append-to-body>
-    <div style="height: 40px; line-height: 40px" slot="title">
-      <span class="title">{{ title }}</span>
-      <el-button size="mini" type="primary" v-if="showCopy" @click="copyCode" :disabled="copied">
-        {{ copied ? '已复制' : '复制' }}
-      </el-button>
-    </div>
+    <template v-slot:title>
+      <div style="height: 40px; line-height: 40px">
+        <span class="title">{{ title }}</span>
+        <el-button size="mini" type="primary" v-if="showCopy" @click="copyCode" :disabled="copied">
+          {{ copied ? '已复制' : '复制' }}
+        </el-button>
+      </div>
+    </template>
     <pre class="code">{{ code }}</pre>
   </el-dialog>
 </template>

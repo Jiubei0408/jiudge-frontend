@@ -1,7 +1,7 @@
 <template>
   <base-box-frame>
     <view-code-dialog ref="VCDialog"/>
-    <template slot="title">提交列表</template>
+    <template v-slot:title>提交列表</template>
     <el-form align="center" inline>
       <el-form-item label="账号">
         <el-input @keypress.native.enter="refreshData" style="width: 150px" v-model="filterForm.username"/>

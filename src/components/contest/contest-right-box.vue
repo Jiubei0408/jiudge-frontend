@@ -2,6 +2,12 @@
   <div>
     <base-box-frame body-style="padding: 20px 0">
       <div ref="buttonList" class="button-list">
+        <template v-if="$route.params.problem_id">
+          <div class="button submit-button" @click="$message.error('施工中')">
+            <i class="el-icon-magic-stick"/> 提交代码
+          </div>
+          <el-divider/>
+        </template>
         <div data-route="problems" class="button" @click="$router.push(`/contest/${contest_id}/problems`)">
           <i class="el-icon-menu"/> 题目列表
         </div>
@@ -13,6 +19,12 @@
         </div>
         <div data-route="clarification" class="button" @click="$router.push(`/contest/${contest_id}/clarification`)">
           <i class="el-icon-warning"/> 赛中问答
+        </div>
+        <div class="admin-button-list" v-if="user.permission === UserPermission.ADMIN">
+          <el-divider/>
+          <div data-route="edit" class="button" @click="$router.push(`/contest/${contest_id}/edit`)">
+            <i class="el-icon-edit-outline"/> 编辑比赛
+          </div>
         </div>
       </div>
     </base-box-frame>
@@ -139,13 +151,26 @@ export default {
   color: black;
   transition: 0.5s;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
-.button:hover, .button-list:not(:hover) .button.active {
+.button:hover, .button.active {
+  box-shadow: inset 8px 0 0 0;
+}
+
+.button:hover, .button.active {
   background: var(--primary-background);
-  cursor: pointer;
-  box-shadow: inset 8px 0 0 0 var(--primary);
   color: var(--primary);
+}
+
+.submit-button:hover {
+  background: var(--success-background);
+  color: var(--success);
+}
+
+.admin-button-list .button:hover, .admin-button-list .button.active {
+  background: var(--warning-background);
+  color: var(--warning)
 }
 
 .button > [class^=el-icon-] {

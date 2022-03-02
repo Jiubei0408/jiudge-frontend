@@ -5,9 +5,9 @@
                :close-on-press-escape="false"
                :show-close="false"
                append-to-body>
-      <div slot="title">
+      <template v-slot:title>
         提交题目： {{ submitForm.id }}
-      </div>
+      </template>
       <el-form :model="submitForm">
         <el-form-item label="代码">
           <el-input :autosize="{minRows: 5, maxRows:15}" type="textarea" v-model="submitForm.code"/>
@@ -20,12 +20,12 @@
           </el-select>
         </el-form-item>
       </el-form>
-      <div slot="footer">
+      <template v-slot:footer>
         <el-button @click="cancelSubmit">Cancel</el-button>
         <el-button type="primary" @click="submitProblem" :disabled="submittingProblem">Submit</el-button>
-      </div>
+      </template>
     </el-dialog>
-    <template slot="title">题目列表</template>
+    <template v-slot:title>题目列表</template>
     <el-table :data="tableData" v-loading="loading" :row-class-name="getRowClass">
       <el-table-column label="=" width="40px">
         <template slot-scope="scope">

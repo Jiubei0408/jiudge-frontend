@@ -17,7 +17,14 @@ const ContestRegisterType = {
     Starred: 2
 }
 
-let enums = {ContestState, UserPermission, ContestRegisterType}
+const ProblemStatus = {
+    NotReady: 0,
+    CrawlQuestCreated: 1,
+    Crawling: 2,
+    Ready: 3
+}
+
+let enums = {ContestState, UserPermission, ContestRegisterType, ProblemStatus}
 
 Vue.mixin({
     data() {

@@ -1,7 +1,7 @@
 <template>
   <div class="page-nav">
     <el-dialog width="450px" :visible.sync="changePwdDialogVisible" :close-on-click-modal="false" append-to-body>
-      <span slot="title">修改密码</span>
+      <template v-slot:title>修改密码</template>
       <el-form label-width="80px" :model="changePwdForm" class="changePwdForm">
         <el-form-item label="账号">
           <span style="user-select: none">{{ user.username }}</span>
@@ -16,10 +16,10 @@
           <el-input v-model="changePwdForm.confirm_password" show-password/>
         </el-form-item>
       </el-form>
-      <div slot="footer">
+      <template v-slot:footer>
         <el-button type="warning" icon="el-icon-lock" @click="changePwd">确认更改</el-button>
         <el-button @click="changePwdDialogVisible=false">取消</el-button>
-      </div>
+      </template>
     </el-dialog>
     <el-menu :default-active="this.$route.path" class="middle-box"
              style="height:60px; width:var(--middle-box-width); z-index:1000"

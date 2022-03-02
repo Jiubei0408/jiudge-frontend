@@ -1,5 +1,5 @@
 <template>
-  <div ref="latexEl" style="font-size: 10px">
+  <div ref="latexEl" style="font-size: 16px">
     <slot v-if="text === null"/>
   </div>
 </template>

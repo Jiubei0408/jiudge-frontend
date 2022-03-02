@@ -40,6 +40,10 @@ let router = new Router({
                 name: 'problem',
                 component: () => import('@/components/contest/test')
             }, {
+                path: 'edit',
+                name: 'edit',
+                component: ()=> import('@/components/contest/edit')
+            }, {
                 path: 'scoreboard',
                 name: 'scoreboard',
                 component: () => import('@/components/contest/scoreboard')
