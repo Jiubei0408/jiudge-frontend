@@ -36,13 +36,17 @@ let router = new Router({
                 name: 'problems',
                 component: () => import('@/components/contest/problem-list')
             }, {
-                path: 'problem/:problem_id',
+                path: 'problem/:pid',
                 name: 'problem',
-                component: () => import('@/components/contest/test')
+                component: () => import('@/components/contest/statement')
+            }, {
+                path: 'submit/:pid?',
+                name: 'submit',
+                component: () => import('@/components/contest/submit')
             }, {
                 path: 'edit',
                 name: 'edit',
-                component: ()=> import('@/components/contest/edit')
+                component: () => import('@/components/contest/edit')
             }, {
                 path: 'scoreboard',
                 name: 'scoreboard',

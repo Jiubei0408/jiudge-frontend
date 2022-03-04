@@ -26,7 +26,7 @@ export default {
   width: 100%;
 }
 
-/deep/ .box-title{
+.box-title{
   font-size: 24px;
   font-weight: bold;
   text-align: center;

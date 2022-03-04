@@ -7,6 +7,7 @@
           <router-view/>
         </div>
       </div>
+      <el-backtop target=".scrollbar .el-scrollbar__wrap"/>
     </el-scrollbar>
   </div>
 </template>

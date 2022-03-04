@@ -2,8 +2,8 @@
   <div>
     <base-box-frame body-style="padding: 20px 0">
       <div ref="buttonList" class="button-list">
-        <template v-if="$route.params.problem_id">
-          <div class="button submit-button" @click="$message.error('施工中')">
+        <template v-if="showSubmit">
+          <div data-route="submit" class="button submit-button" @click="gotoSubmit">
             <i class="el-icon-magic-stick"/> 提交代码
           </div>
           <el-divider/>
@@ -23,7 +23,7 @@
         <div class="admin-button-list" v-if="user.permission === UserPermission.ADMIN">
           <el-divider/>
           <div data-route="edit" class="button" @click="$router.push(`/contest/${contest_id}/edit`)">
-            <i class="el-icon-edit-outline"/> 编辑比赛
+            <i class="el-icon-s-tools"/> 比赛设置
           </div>
         </div>
       </div>
@@ -59,15 +59,25 @@ export default {
   data() {
     return {
       progress: 0,
-      progressTimer: undefined
+      progressTimer: undefined,
     }
   },
   computed: {
     contest() {
       return this.getContest()
+    },
+    showSubmit() {
+      if (this.user.username === '') return false
+      if (this.user.permission === this.UserPermission.ADMIN) return true
+      return this.contest.state === this.ContestState.RUNNING && this.contest.registered
     }
   },
   methods: {
+    gotoSubmit() {
+      let pid = this.$route.params.pid
+      if (pid) this.$router.push(`/contest/${this.contest_id}/submit/${pid}`)
+      else this.$router.push(`/contest/${this.contest_id}/submit`)
+    },
     calcProgress() {
       if (!this.contest.start_time) {
         this.progressTimer = setTimeout(this.calcProgress, 1000)
@@ -140,6 +150,7 @@ export default {
 /deep/ .description-label {
   color: var(--info);
   font-size: 14px;
+  flex: 0 0 60px;
 }
 
 .button {
@@ -163,7 +174,7 @@ export default {
   color: var(--primary);
 }
 
-.submit-button:hover {
+.submit-button:hover, .submit-button.active {
   background: var(--success-background);
   color: var(--success);
 }

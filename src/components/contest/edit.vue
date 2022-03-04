@@ -7,8 +7,15 @@
 
 <script>
 import BaseBoxFrame from "@/components/globals/base-box-frame";
+
 export default {
   name: "edit",
+  inject: ['getContest'],
+  computed: {
+    contest() {
+      return this.getContest()
+    }
+  },
   components: {BaseBoxFrame}
 }
 </script>

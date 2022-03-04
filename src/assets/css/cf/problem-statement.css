@@ -127,8 +127,9 @@
 
 .problem-statement .section-title {
     font-family: helvetica neue, Helvetica, Arial, sans-serif;
-    font-size: 115%;
-    font-weight: 700
+    font-size: 130%;
+    font-weight: 700;
+    margin-bottom: 1em;
 }
 
 .problem-statement .input-specification, .problem-statement .output-specification, .problem-statement .sample-tests, .problem-statement .author, .problem-statement .resource, .problem-statement .date {
@@ -215,6 +216,10 @@ div .problem-statement-overlay {
 
 .problem-statement input[type=text] {
     width: 20em
+}
+
+.problem-statement ul {
+    padding-left: 0;
 }
 
 .problem-statement textarea {
@@ -308,7 +313,8 @@ div .problem-statement-overlay {
 }
 
 .tex-font-style-it {
-    font-style: italic
+    font-style: italic;
+    font-weight: bold;
 }
 
 .tex-font-style-sl {
