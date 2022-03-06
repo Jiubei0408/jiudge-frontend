@@ -1,32 +1,30 @@
 <template>
   <div>
     <base-box-frame body-style="padding: 20px 0">
-      <div ref="buttonList" class="button-list">
-        <template v-if="showSubmit">
-          <div data-route="submit" class="button submit-button" @click="gotoSubmit">
-            <i class="el-icon-magic-stick"/> 提交代码
-          </div>
-          <el-divider/>
-        </template>
-        <div data-route="problems" class="button" @click="$router.push(`/contest/${contest_id}/problems`)">
-          <i class="el-icon-menu"/> 题目列表
-        </div>
-        <div data-route="status" class="button" @click="$router.push(`/contest/${contest_id}/status`)">
-          <i class="el-icon-upload"/> 提交记录
-        </div>
-        <div data-route="scoreboard" class="button" @click="$router.push(`/contest/${contest_id}/scoreboard`)">
-          <i class="el-icon-s-order"/> 比赛榜单
-        </div>
-        <div data-route="clarification" class="button" @click="$router.push(`/contest/${contest_id}/clarification`)">
-          <i class="el-icon-warning"/> 赛中问答
-        </div>
-        <div class="admin-button-list" v-if="user.permission === UserPermission.ADMIN">
-          <el-divider/>
-          <div data-route="edit" class="button" @click="$router.push(`/contest/${contest_id}/edit`)">
-            <i class="el-icon-s-tools"/> 比赛设置
-          </div>
-        </div>
-      </div>
+      <template v-if="showSubmit">
+        <router-button icon="magic-stick" :route="submitUrl" type="submit">
+          提交代码
+        </router-button>
+        <el-divider/>
+      </template>
+      <router-button icon="menu" :route="`/contest/${contest_id}/problems`">
+        题目列表
+      </router-button>
+      <router-button icon="upload" :route="`/contest/${contest_id}/status`">
+        提交记录
+      </router-button>
+      <router-button icon="s-order" :route="`/contest/${contest_id}/scoreboard`">
+        比赛榜单
+      </router-button>
+      <router-button icon="warning" :route="`/contest/${contest_id}/clarification`">
+        赛中问答
+      </router-button>
+      <template v-if="user.permission === UserPermission.ADMIN">
+        <el-divider/>
+        <router-button icon="s-tools" type="admin" :route="`/contest/${contest_id}/edit`">
+          比赛设置
+        </router-button>
+      </template>
     </base-box-frame>
     <base-box-frame style="margin-top: 5px" v-if="contest.start_time">
       <el-progress :percentage="progress" :status="contest.state === ContestState.ENDED ? 'success' : undefined"
@@ -51,11 +49,12 @@
 
 <script>
 import BaseBoxFrame from "@/components/globals/base-box-frame";
+import RouterButton from "@/components/globals/router-button";
 
 export default {
   name: "contest-right-box",
   inject: ['getContest', 'contest_id'],
-  components: {BaseBoxFrame},
+  components: {RouterButton, BaseBoxFrame},
   data() {
     return {
       progress: 0,
@@ -70,14 +69,14 @@ export default {
       if (this.user.username === '') return false
       if (this.user.permission === this.UserPermission.ADMIN) return true
       return this.contest.state === this.ContestState.RUNNING && this.contest.registered
+    },
+    submitUrl() {
+      let pid = this.$route.params.pid
+      if (pid) return `/contest/${this.contest_id}/submit/${pid}`
+      return `/contest/${this.contest_id}/submit`
     }
   },
   methods: {
-    gotoSubmit() {
-      let pid = this.$route.params.pid
-      if (pid) this.$router.push(`/contest/${this.contest_id}/submit/${pid}`)
-      else this.$router.push(`/contest/${this.contest_id}/submit`)
-    },
     calcProgress() {
       if (!this.contest.start_time) {
         this.progressTimer = setTimeout(this.calcProgress, 1000)
@@ -112,23 +111,7 @@ export default {
         this.progress = (now.unix() - begin.unix()) / (end.unix() - begin.unix()) * 100
       }
       this.progressTimer = setTimeout(this.calcProgress, 1000)
-    },
-    refreshButtonActive() {
-      for (let button of this.$refs['buttonList'].children) {
-        button.classList.remove('active')
-        if (button.dataset['route'] === this.$route.name) {
-          button.classList.add('active')
-        }
-      }
     }
-  },
-  watch: {
-    $route() {
-      this.refreshButtonActive()
-    }
-  },
-  mounted() {
-    this.refreshButtonActive()
   },
   created() {
     this.calcProgress()
@@ -151,41 +134,5 @@ export default {
   color: var(--info);
   font-size: 14px;
   flex: 0 0 60px;
-}
-
-.button {
-  width: 100%;
-  height: 50px;
-  line-height: 30px;
-  font-size: 15px;
-  padding: 10px 40px;
-  color: black;
-  transition: 0.5s;
-  box-sizing: border-box;
-  cursor: pointer;
-}
-
-.button:hover, .button.active {
-  box-shadow: inset 8px 0 0 0;
-}
-
-.button:hover, .button.active {
-  background: var(--primary-background);
-  color: var(--primary);
-}
-
-.submit-button:hover, .submit-button.active {
-  background: var(--success-background);
-  color: var(--success);
-}
-
-.admin-button-list .button:hover, .admin-button-list .button.active {
-  background: var(--warning-background);
-  color: var(--warning)
-}
-
-.button > [class^=el-icon-] {
-  margin-right: 10px;
-  font-size: 16px;
 }
 </style>
