@@ -54,25 +54,24 @@ export default {
   transition: 0.5s;
   box-sizing: border-box;
   cursor: pointer;
+  --text-color: var(--primary);
+  --background-color: var(--primary-background);
 }
 
 .router-button:hover, .router-button.is-active {
-  box-shadow: inset 8px 0 0 0;
-}
-
-.router-button--default:hover, .router-button--default.is-active {
-  background: var(--primary-background);
-  color: var(--primary);
+  box-shadow: inset 8px 0 0 0 var(--text-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .router-button--submit:hover, .router-button--submit.is-active {
-  background: var(--success-background);
-  color: var(--success);
+  --background-color: var(--success-background);
+  --text-color: var(--success);
 }
 
 .router-button--admin:hover, .router-button--admin.is-active {
-  background: var(--warning-background);
-  color: var(--warning)
+  --background-color: var(--warning-background);
+  --text-color: var(--warning)
 }
 
 .router-button > [class^=el-icon-] {
