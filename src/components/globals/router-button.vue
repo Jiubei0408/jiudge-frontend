@@ -28,11 +28,9 @@ export default {
   },
   computed: {
     active() {
-      console.log(this.$route.name, this.routeName)
       return this.$route.name === this.routeName
     },
     routeName() {
-      console.log(this.route, this.$router.resolve(this.route))
       return this.$router.resolve(this.route).route.name
     },
     routeHref() {
