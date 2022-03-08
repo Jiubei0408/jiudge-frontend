@@ -23,14 +23,14 @@
       </el-table-column>
       <el-table-column label="姓名" prop="user.nickname" width="150px" fixed/>
       <el-table-column label="通过" prop="solved" width="60px" fixed/>
-      <el-table-column label="罚时" prop="penalty" width="70px" fixed/>
+      <el-table-column label="罚时" prop="penalty" width="70px" v-if="contest.end_time" fixed/>
       <el-table-column :label="problem.problem_id" :prop="problem.problem_id"
                        v-for="problem in problems"
                        :key="problem.problem_id"
                        width="60px">
         <div :class="getCellClass(scope)" slot-scope="scope" v-if="isSubmitted(scope)">
           <span class="tried-cnt" :class="getTriedCntClass(scope)">{{ getTriedCntStr(scope) }}</span>
-          <span class="solve-time" v-if="isSolved(scope)">{{ getSolveTimeStr(scope) }}</span>
+          <span class="solve-time" v-if="isSolved(scope) && contest.end_time">{{ getSolveTimeStr(scope) }}</span>
         </div>
       </el-table-column>
     </el-table>
@@ -45,8 +45,13 @@ import BaseBoxFrame from "@/components/globals/base-box-frame";
 
 export default {
   name: "scoreboard",
-  inject: ['contest_id'],
+  inject: ['getContest', 'contest_id'],
   components: {BaseBoxFrame},
+  computed: {
+    contest() {
+      return this.getContest()
+    }
+  },
   data() {
     return {
       tableData: [],
