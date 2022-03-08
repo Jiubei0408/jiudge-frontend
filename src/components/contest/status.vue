@@ -27,8 +27,13 @@
           </el-link>
         </template>
       </el-table-column>
-      <el-table-column label="账号" prop="user.username" width="100px"/>
-      <el-table-column label="姓名" prop="user.nickname" width="80px"/>
+      <el-table-column label="账号" width="80px">
+        <template slot-scope="scope">
+          <el-tooltip style="width: fit-content" :content="scope.row.user.username">
+            <p>{{ scope.row.user.nickname }}</p>
+          </el-tooltip>
+        </template>
+      </el-table-column>
       <el-table-column label="题目" prop="problem.problem_id" width="60px"/>
       <el-table-column label="结果" prop="view_result" width="100px">
         <template slot-scope="scope">
@@ -39,8 +44,13 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column label="语言" prop="lang" width="80px"/>
-      <el-table-column label="提交时间" prop="submit_time"/>
+      <el-table-column label="语言" prop="lang"/>
+      <el-table-column label="资源消耗">
+        <template v-slot="scope">
+          {{ scope.row.time_used }}ms / {{ scope.row.memory_used }}KB
+        </template>
+      </el-table-column>
+      <el-table-column label="提交时间" prop="submit_time" width="150px"/>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-link @click="viewCompileInfo(scope.row.compile_info)" :underline="false">查看编译信息</el-link>
