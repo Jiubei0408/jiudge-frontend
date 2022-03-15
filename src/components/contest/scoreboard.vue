@@ -3,14 +3,18 @@
     <template v-slot:title>
       <div class="clearfix">
         <span style="float: left">比赛榜单</span>
-        <el-popconfirm style="float: right" v-if="user.permission === UserPermission.ADMIN" title="确认删除榜单缓存？"
-                       @confirm="deleteCache">
-          <template v-slot:reference>
-            <el-button size="medium" type="danger" icon="el-icon-delete">
-              删除缓存
-            </el-button>
-          </template>
-        </el-popconfirm>
+        <div v-if="user.permission === UserPermission.ADMIN" class="op-list">
+          <el-button size="medium" type="warning" icon="el-icon-document"
+                     :loading="exporting" @click="exportScoreboard">
+            导出榜单
+          </el-button>
+          <el-popconfirm title="确认删除榜单缓存？"
+                         @confirm="deleteCache">
+            <template v-slot:reference>
+              <el-button size="medium" type="danger" icon="el-icon-delete">删除缓存</el-button>
+            </template>
+          </el-popconfirm>
+        </div>
       </div>
     </template>
     <el-table v-loading="loading" :data="tableData" border
@@ -57,10 +61,23 @@ export default {
       tableData: [],
       problems: [],
       update_time: '',
-      loading: false
+      loading: false,
+      exporting: false
     }
   },
   methods: {
+    exportScoreboard() {
+      this.$message.success('正在导出')
+      this.exporting = true
+      setTimeout(() => {
+        this.exporting = false
+      }, 2000)
+      let downloadElement = document.createElement("a");
+      downloadElement.href = this.api + `/contest/${this.contest_id}/export_scoreboard`;
+      document.body.appendChild(downloadElement);
+      downloadElement.click();
+      document.body.removeChild(downloadElement);
+    },
     deleteCache() {
       this.$http.delete(this.api + `/contest/${this.contest_id}/scoreboard`)
     },
@@ -124,6 +141,14 @@ export default {
 </script>
 
 <style scoped>
+.op-list {
+  float: right;
+}
+
+.op-list *:not(:first-child) {
+  margin-left: 10px;
+}
+
 /deep/ .scoreboard-header-cell {
   font-weight: normal;
   color: black;
