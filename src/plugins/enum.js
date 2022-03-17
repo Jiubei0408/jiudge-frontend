@@ -1,27 +1,27 @@
 import Vue from 'vue'
 
 const ContestState = {
-    BEFORE_START: 1,
-    RUNNING: 2,
-    ENDED: 3
+    BEFORE_START: 'BEFORE_START',
+    RUNNING: 'RUNNING',
+    ENDED: 'ENDED'
 }
 
 const UserPermission = {
-    NORMAL: 0,
-    ADMIN: 1
+    NORMAL: 'NORMAL',
+    ADMIN: 'ADMIN'
 }
 
 const ContestRegisterType = {
-    Participant: 0,
-    Observer: 1,
-    Starred: 2
+    Participant: 'Participant',
+    Observer: 'Observer',
+    Starred: 'Starred'
 }
 
 const ProblemStatus = {
-    NotReady: 0,
-    CrawlQuestCreated: 1,
-    Crawling: 2,
-    Ready: 3
+    NotReady: 'NotReady',
+    CrawlQuestCreated: 'CrawlQuestCreated',
+    Crawling: 'Crawling',
+    Ready: 'Ready'
 }
 
 let enums = {ContestState, UserPermission, ContestRegisterType, ProblemStatus}
