@@ -46,6 +46,11 @@ export default {
   },
   created() {
     this.refereshData()
+  },
+  watch: {
+    '$route.params.cid'(){
+      window.location.reload()
+    }
   }
 }
 </script>

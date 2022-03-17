@@ -48,6 +48,10 @@ let router = new Router({
                 name: 'edit',
                 component: () => import('@/components/contest/edit')
             }, {
+                path: 'edit-problem-list',
+                name: 'edit-problem-list',
+                component: () => import('@/components/contest/edit-problem-list')
+            }, {
                 path: 'scoreboard',
                 name: 'scoreboard',
                 component: () => import('@/components/contest/scoreboard')

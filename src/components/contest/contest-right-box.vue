@@ -24,6 +24,9 @@
         <router-button icon="s-tools" type="admin" :route="`/contest/${contest_id}/edit`">
           比赛设置
         </router-button>
+        <router-button icon="more" type="admin" :route="`/contest/${contest_id}/edit-problem-list`">
+          题目编排
+        </router-button>
       </template>
     </base-box-frame>
     <base-box-frame style="margin-top: 5px" v-if="contest.start_time">
