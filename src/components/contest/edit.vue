@@ -26,6 +26,9 @@
       <el-form-item label="是否启用">
         <el-switch v-model="modifyForm.ready"/>
       </el-form-item>
+      <el-form-item label="优先级">
+        <el-input-number :max="99" :min="0" v-model="modifyForm.priority"/>
+      </el-form-item>
       <el-button type="warning" @click="modifyContest">保存修改</el-button>
     </el-form>
   </base-box-frame>
@@ -53,14 +56,14 @@ export default {
         end_time: '',
         password: '',
         has_password: false,
-        ready: false
+        ready: false,
+        priority: 0
       },
       loading: false
     }
   },
   methods: {
     modifyContest() {
-      console.log(this.modifyForm)
       if (this.modifyForm.is_contest) {
         if (this.modifyForm.end_time === '') {
           this.$message.error('请设置结束时间')

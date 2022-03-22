@@ -39,9 +39,12 @@
     </div>
     <el-table :data="tableData">
       <el-table-column label="比赛名">
-        <el-link slot-scope="scope" :underline="false" @click="$router.push(`/contest/${scope.row.id}`)">
-          {{ scope.row.contest_name }}
-        </el-link>
+        <template slot-scope="scope">
+          <el-link :underline="false" @click="$router.push(`/contest/${scope.row.id}`)">
+            {{ scope.row.contest_name }}
+          </el-link>
+          <el-tag v-if="scope.row.priority >= 1" style="float: right" size="mini">置顶</el-tag>
+        </template>
       </el-table-column>
       <el-table-column label="开始时间" prop="start_time"/>
       <el-table-column label="结束时间">
