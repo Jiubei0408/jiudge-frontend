@@ -7,6 +7,7 @@ import store from "@/plugins/store"
 import '@/plugins/enum'
 import '@/plugins/moment'
 import '@/assets/css/cf/problem-statement.css'
+import '@/assets/css/poj/problem-statement.css'
 
 Vue.config.productionTip = false
 
