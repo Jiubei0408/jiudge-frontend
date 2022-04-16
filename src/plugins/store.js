@@ -41,7 +41,7 @@ let mutations = {
             .catch(() => {
                 state.user = {
                     username: '',
-                    password: '',
+                    nickname: '',
                     permission: 0
                 }
             })
