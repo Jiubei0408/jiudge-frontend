@@ -17,9 +17,9 @@
         比赛榜单
       </router-button>
       <router-button icon="warning" :route="`/contest/${contest_id}/clarification`">
-        赛中问答
+        赛中问答<el-badge v-show="unreadCount > 0" :value="unreadCount"></el-badge>
       </router-button>
-      <template v-if="user.permission === UserPermission.ADMIN">
+      <template v-if="contest.admin">
         <el-divider/>
         <router-button icon="s-tools" type="admin" :route="`/contest/${contest_id}/edit`">
           比赛设置
@@ -62,6 +62,8 @@ export default {
     return {
       progress: 0,
       progressTimer: undefined,
+      unreadCount: 0,
+      getUnreadCountTimer: undefined
     }
   },
   computed: {
@@ -70,7 +72,7 @@ export default {
     },
     showSubmit() {
       if (this.user.username === '') return false
-      if (this.user.permission === this.UserPermission.ADMIN) return true
+      if (this.contest.admin) return true
       return this.contest.state === this.ContestState.RUNNING && this.contest.registered
     },
     submitUrl() {
@@ -114,13 +116,28 @@ export default {
         this.progress = (now.unix() - begin.unix()) / (end.unix() - begin.unix()) * 100
       }
       this.progressTimer = setTimeout(this.calcProgress, 1000)
+    },
+    getUnreadClarCount() {
+      if (!this.contest.id) {
+        this.getUnreadCountTimer = setTimeout(this.getUnreadClarCount, 1000)
+        return
+      }
+      this.$http.get(this.api + `/contest/${this.contest.id}/clar_count`)
+          .then(resp => {
+            this.unreadCount = resp.data.data
+          })
+          .finally(() => {
+            this.getUnreadCountTimer = setTimeout(this.getUnreadClarCount, 10000)
+          })
     }
   },
   created() {
     this.calcProgress()
+    this.getUnreadClarCount()
   },
   destroyed() {
     clearTimeout(this.progressTimer)
+    clearTimeout(this.getUnreadCountTimer)
   }
 }
 </script>

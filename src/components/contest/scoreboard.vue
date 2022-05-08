@@ -3,7 +3,7 @@
     <template v-slot:title>
       <div class="clearfix">
         <span style="float: left">比赛榜单</span>
-        <div v-if="user.permission === UserPermission.ADMIN" class="op-list">
+        <div v-if="contest.admin" class="op-list">
           <el-button size="medium" type="warning" icon="el-icon-document"
                      :loading="exporting" @click="exportScoreboard">
             导出榜单
