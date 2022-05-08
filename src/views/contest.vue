@@ -3,8 +3,8 @@
     <el-row :gutter="16">
       <el-col :span="19">
         <div class="notice" v-if="contest.notice && contest.notice !== ''">
-          <i class="el-icon-info"/>
-          <span>{{contest.notice}}</span>
+          <span class="notice-title"><i class="el-icon-chat-line-square"/> 公告板</span>
+          <pre class="notice-content">{{ contest.notice }}</pre>
         </div>
         <router-view/>
       </el-col>
@@ -62,19 +62,24 @@ export default {
 
 <style scoped>
 .notice {
-  color: var(--primary);
-  background-color: var(--primary-background);
-  border: 1px dashed var(--primary);
-  border-radius: 10px;
-  line-height: 40px;
+  background-color: var(--info-background);
+  border: 1px solid var(--info);
+  border-radius: 8px;
+  line-height: 35px;
   font-size: 18px;
   margin-bottom: 10px;
   padding: 10px 20px;
 }
 
-.notice span {
-  margin-left: 5px;
+.notice-title {
+  font-size: 20px;
+  line-height: 40px;
   font-weight: bold;
+}
+
+.notice-content {
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  margin: 0;
   word-break: break-all;
 }
 </style>
