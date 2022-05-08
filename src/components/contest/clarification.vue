@@ -131,7 +131,7 @@ export default {
           })
     },
     openNewClarDialog() {
-      this.newClarForm = this.$data.newClarForm
+      this.newClarForm = this.$options.data().newClarForm
       if (!this.contest.admin) {
         this.newClarForm.to = 'jury'
       }
