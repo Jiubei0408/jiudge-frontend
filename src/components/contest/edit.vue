@@ -23,6 +23,10 @@
       <el-form-item label="比赛密码" v-if="modifyForm.has_password">
         <el-input style="width: 300px" v-model="modifyForm.password"/>
       </el-form-item>
+      <el-form-item label="比赛公告">
+        <el-input type="textarea" :autosize="{minRows: 3, maxRows: 3}"
+                  maxlength="200" show-word-limit v-model="modifyForm.notice"/>
+      </el-form-item>
       <el-form-item label="是否启用">
         <el-switch v-model="modifyForm.ready"/>
       </el-form-item>
@@ -39,7 +43,7 @@ import BaseBoxFrame from "@/components/globals/base-box-frame";
 
 export default {
   name: "edit",
-  inject: ['getContest', 'contest_id'],
+  inject: ['getContest', 'contest_id', 'refreshContestMeta'],
   components: {BaseBoxFrame},
   computed: {
     contest() {
@@ -57,7 +61,8 @@ export default {
         password: '',
         has_password: false,
         ready: false,
-        priority: 0
+        priority: 0,
+        notice: ''
       },
       loading: false
     }
@@ -96,6 +101,7 @@ export default {
           .then(resp => {
             this.$message.success(resp.data.msg)
             this.refreshData()
+            this.refreshContestMeta()
           })
           .catch(err => {
             this.$message.error(err.response.data.msg)

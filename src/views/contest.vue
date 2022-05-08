@@ -2,6 +2,10 @@
   <div>
     <el-row :gutter="16">
       <el-col :span="19">
+        <div class="notice" v-if="contest.notice && contest.notice !== ''">
+          <i class="el-icon-info"/>
+          <span>{{contest.notice}}</span>
+        </div>
         <router-view/>
       </el-col>
       <el-col :span="5">
@@ -20,7 +24,8 @@ export default {
   provide() {
     return {
       contest_id: this.contest_id,
-      getContest: () => this.contest
+      getContest: () => this.contest,
+      refreshContestMeta: this.refereshData
     }
   },
   computed: {
@@ -48,7 +53,7 @@ export default {
     this.refereshData()
   },
   watch: {
-    '$route.params.cid'(){
+    '$route.params.cid'() {
       window.location.reload()
     }
   }
@@ -56,5 +61,20 @@ export default {
 </script>
 
 <style scoped>
+.notice {
+  color: var(--primary);
+  background-color: var(--primary-background);
+  border: 1px dashed var(--primary);
+  border-radius: 10px;
+  line-height: 40px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+}
 
+.notice span {
+  margin-left: 5px;
+  font-weight: bold;
+  word-break: break-all;
+}
 </style>
