@@ -78,7 +78,7 @@ export default {
     return {
       tableData: [],
       page: 1,
-      page_size: 10,
+      page_size: 20,
       total: 0,
       appendDialogVisible: false,
       appendForm: {
