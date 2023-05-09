@@ -6,7 +6,7 @@
       <p class="sub-title">空间限制: {{ problem.space_limit }}KB</p>
       <el-divider/>
       <template v-if="problem.problem_text">
-        <latex-viewer :text="problem.problem_text"/>
+        <latex-viewer :text="problem.problem_text" :inline-math="inlineMath" :display-math="displayMath"/>
       </template>
       <template v-if="problem.has_problem_text_file">
         <div style="text-align: center">
@@ -38,6 +38,20 @@ export default {
   computed: {
     problem_id() {
       return this.$route.params.pid
+    },
+    inlineMath() {
+      if (this.problem == null) return []
+      let oj_name = this.problem.oj.name
+      if (oj_name === 'hdu') return [['$', '$']]
+      else if (oj_name === 'codeforces') return [['$$$', '$$$']]
+      return []
+    },
+    displayMath() {
+      if (this.problem == null) return []
+      let oj_name = this.problem.oj.name
+      if (oj_name === 'hdu') return [['$$$', '$$$']]
+      else if (oj_name === 'codeforces') return [['$$$$$$', '$$$$$$']]
+      return []
     }
   },
   methods: {

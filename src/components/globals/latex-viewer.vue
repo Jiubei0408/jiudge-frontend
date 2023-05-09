@@ -11,6 +11,14 @@ export default {
     text: {
       type: String,
       default: null
+    },
+    inlineMath: {
+      type: Array,
+      default: () => [['$', '$']]
+    },
+    displayMath: {
+      type: Array,
+      default: () => [['$$$$$$', '$$$$$$']]
     }
   },
   mounted() {
@@ -18,6 +26,12 @@ export default {
       this.$refs.latexEl.innerHTML = this.text
     }
     if (window.MathJax) {
+      window.MathJax.config.tex = {
+        inlineMath: this.inlineMath,
+        displayMath: this.displayMath
+      }
+      console.log(window.MathJax.config.tex)
+      window.MathJax.startup.getComponents()
       window.MathJax.typeset([this.$refs.latexEl])
     }
   },

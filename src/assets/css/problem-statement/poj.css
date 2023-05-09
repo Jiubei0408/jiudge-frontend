@@ -1,0 +1,20 @@
+.pst{
+    font-family: helvetica neue, Helvetica, Arial, sans-serif;
+    font-size: 1.3em;
+    font-weight: 700;
+    margin-bottom: 1em;
+}
+
+.ptx{
+    margin: 0 0 1em !important;
+    line-height: 1.25em;
+}
+
+
+.sio {
+    border: 1px solid #888;
+    line-height: 1.25em;
+    padding: .25em;
+    margin: 0;
+    background-color: #efefef;
+}
