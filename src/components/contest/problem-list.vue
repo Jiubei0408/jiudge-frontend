@@ -15,7 +15,8 @@
       <el-table-column label="题目名称">
         <template v-slot="scope">
           <el-link :underline="false" @click="$router.push(`/contest/${contest_id}/problem/${scope.row.problem_id}`)">
-            {{ scope.row.problem_name }}
+            <template v-if="scope.row.problem_name"> {{ scope.row.problem_name }}</template>
+            <template v-else><span style="color: var(--dangerous)">未知</span></template>
           </el-link>
         </template>
       </el-table-column>

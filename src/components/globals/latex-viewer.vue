@@ -30,7 +30,6 @@ export default {
         inlineMath: this.inlineMath,
         displayMath: this.displayMath
       }
-      console.log(window.MathJax.config.tex)
       window.MathJax.startup.getComponents()
       window.MathJax.typeset([this.$refs.latexEl])
     }
