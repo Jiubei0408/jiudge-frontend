@@ -42,14 +42,14 @@ export default {
     inlineMath() {
       if (this.problem == null) return []
       let oj_name = this.problem.oj.name
-      if (oj_name === 'hdu') return [['$', '$']]
+      if (oj_name === 'hdu' || oj_name === 'hzcuoj') return [['$', '$']]
       else if (oj_name === 'codeforces') return [['$$$', '$$$']]
       return []
     },
     displayMath() {
       if (this.problem == null) return []
       let oj_name = this.problem.oj.name
-      if (oj_name === 'hdu') return [['$$$', '$$$']]
+      if (oj_name === 'hdu' || oj_name === 'hzcuoj') return [['$$$', '$$$']]
       else if (oj_name === 'codeforces') return [['$$$$$$', '$$$$$$']]
       return []
     }
